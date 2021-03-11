@@ -1,4 +1,4 @@
-package mo.bfh.catalog;
+package mo.bfh.catalog.repository;
 
 import mo.bfh.catalog.entity.Book;
 import mo.bfh.catalog.repository.BookRepository;
