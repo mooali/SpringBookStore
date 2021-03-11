@@ -1,7 +1,6 @@
 package mo.bfh.catalog.repository;
 
 import mo.bfh.catalog.entity.Book;
-import mo.bfh.catalog.repository.BookRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

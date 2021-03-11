@@ -32,9 +32,9 @@ public class Book {
 
     private String publisher;
 
-    private Year publishingYear;
+    private Integer publishingYear;
 
-    private int numberOfPages;
+    private Integer numberOfPages;
 
     private String categories;
 
@@ -50,8 +50,8 @@ public class Book {
 
 
     public Book(Integer id, String isbn, String title, String subtitle,
-                String authors, String publisher, Year publishingYear,
-                int numberOfPages, String categories, String description,
+                String authors, String publisher, Integer publishingYear,
+                Integer numberOfPages, String categories, String description,
                 String imageUrl, String rating, BigDecimal price) {
         this.Id = id;
         this.isbn = isbn;
@@ -119,19 +119,19 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public Year getPublishingYear() {
+    public Integer getPublishingYear() {
         return publishingYear;
     }
 
-    public void setPublishingYear(Year publishingYear) {
+    public void setPublishingYear(Integer publishingYear) {
         this.publishingYear = publishingYear;
     }
 
-    public int getNumberOfPages() {
+    public Integer getNumberOfPages() {
         return numberOfPages;
     }
 
-    public void setNumberOfPages(int numberOfPages) {
+    public void setNumberOfPages(Integer numberOfPages) {
         this.numberOfPages = numberOfPages;
     }
 
