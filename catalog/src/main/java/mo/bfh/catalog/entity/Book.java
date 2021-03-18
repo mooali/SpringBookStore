@@ -1,23 +1,22 @@
 package mo.bfh.catalog.entity;
 
+
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.Year;
 
 @Entity
 public class Book {
 
     @Id
     @SequenceGenerator(
-            name= "book_sequence",
-            sequenceName = "book_sequence",
-            allocationSize = 1
+            name= "book_seq",
+            sequenceName = "book_seq"
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "book_sequence"
+            generator = "book_seq"
     )
-    private Integer Id;
+    private Long Id;
 
     @Column(unique = true, nullable = false)
     private String isbn;
@@ -32,13 +31,13 @@ public class Book {
 
     private String publisher;
 
-    private Integer publishingYear;
+    private Integer publicationYear;
 
     private Integer numberOfPages;
 
     private String categories;
 
-    @Column(length = 40)
+    @Column(length = 500)
     private String description;
 
     private String imageUrl;
@@ -49,8 +48,8 @@ public class Book {
     private BigDecimal price;
 
 
-    public Book(Integer id, String isbn, String title, String subtitle,
-                String authors, String publisher, Integer publishingYear,
+    public Book(Long id, String isbn, String title, String subtitle,
+                String authors, String publisher, Integer publicationYear,
                 Integer numberOfPages, String categories, String description,
                 String imageUrl, String rating, BigDecimal price) {
         this.Id = id;
@@ -59,7 +58,7 @@ public class Book {
         this.subtitle = subtitle;
         this.authors = authors;
         this.publisher = publisher;
-        this.publishingYear = publishingYear;
+        this.publicationYear = publicationYear;
         this.numberOfPages = numberOfPages;
         this.categories = categories;
         this.description = description;
@@ -71,11 +70,11 @@ public class Book {
     public Book() {
     }
 
-    public Integer getId() {
+    public Long getId() {
         return Id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         Id = id;
     }
 
@@ -119,12 +118,12 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public Integer getPublishingYear() {
-        return publishingYear;
+    public Integer getPublicationYear() {
+        return publicationYear;
     }
 
-    public void setPublishingYear(Integer publishingYear) {
-        this.publishingYear = publishingYear;
+    public void setPublicationYear(Integer publicationYear) {
+        this.publicationYear = publicationYear;
     }
 
     public Integer getNumberOfPages() {
