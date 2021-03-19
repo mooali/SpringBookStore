@@ -9,7 +9,7 @@ public class Book {
 
     @Id
     @SequenceGenerator(
-            name= "book_seq",
+            name = "book_seq",
             sequenceName = "book_seq"
     )
     @GeneratedValue(
