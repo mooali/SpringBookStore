@@ -1,7 +1,7 @@
 # Bookstore Application
 
-This repository contains the implementation of a bookstore application which was developed in the course *Web Business
-Applications* at the Bern University of Applied Sciences (BFH).
+This repository contains the implementation of a bookstore application which was developed in the course *Digital
+Business Systems* at the Bern University of Applied Sciences (BFH).
 
 ## Requirements
 
