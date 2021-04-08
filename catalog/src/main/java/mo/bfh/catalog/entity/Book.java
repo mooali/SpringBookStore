@@ -1,8 +1,18 @@
 package mo.bfh.catalog.entity;
 
+import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+
 
 @Entity
 public class Book {
@@ -18,33 +28,35 @@ public class Book {
     )
     private Long Id;
 
-    @Column(unique = true, nullable = false)
+    @NotBlank
+    @Length(min = 10, max = 13)
     private String isbn;
 
-    @Column(nullable = false)
+    @NotNull
     private String title;
 
     private String subtitle;
 
-    @Column(nullable = false)
+    @NotNull
     private String authors;
 
     private String publisher;
 
+    @Min(1000)
     private Integer publicationYear;
 
     private Integer numberOfPages;
 
     private String categories;
 
-    @Column(length = 500)
+    @Size(max = 500)
     private String description;
 
     private String imageUrl;
 
     private String rating;
 
-    @Column(nullable = false)
+    @NotNull
     private BigDecimal price;
 
 
