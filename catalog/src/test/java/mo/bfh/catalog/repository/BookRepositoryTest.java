@@ -1,17 +1,24 @@
 package mo.bfh.catalog.repository;
 
 import mo.bfh.catalog.entity.Book;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Sort;
 
+import javax.validation.ConstraintViolationException;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
+import static mo.bfh.catalog.repository.BookSpecifications.contains;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+
 
 @DataJpaTest
 public class BookRepositoryTest {
@@ -19,25 +26,22 @@ public class BookRepositoryTest {
     @Autowired
     private BookRepository repository;
 
-    private Book book;
-
-    @BeforeEach
-    public void init() {
-        book = new Book();
-        book.setTitle("Spring in Action");
-        book.setIsbn("1617294942");
-        book.setAuthors("Craig Walls");
-        book.setPrice(new BigDecimal("66.95"));
-
-        book = repository.saveAndFlush(book);
+    @Test
+    public void findBookByIsbn() {
+        Optional<Book> optionalBook = repository.findByIsbn("9781484228074");
+        assertTrue(optionalBook.isPresent());
     }
 
     @Test
     public void findBookById() {
-        book = repository.saveAndFlush(book);
-
-        Optional<Book> optionalBook = repository.findById(book.getId());
+        Optional<Book> optionalBook = repository.findById(1L);
         assertTrue(optionalBook.isPresent());
+    }
+
+    @Test
+    public void findBySpecification() {
+        List<Book> books = repository.findAll((Sort) contains("Spring"));
+        assertEquals(1, books.size());
     }
 
     @Test
@@ -45,7 +49,7 @@ public class BookRepositoryTest {
         assertThrows(DataIntegrityViolationException.class, () -> {
             Book anotherBook = new Book();
             anotherBook.setTitle("Spring in Action");
-            anotherBook.setIsbn("1617294942");
+            anotherBook.setIsbn("9781484228074");
             anotherBook.setAuthors("Craig Walls");
             anotherBook.setPrice(new BigDecimal("66.95"));
             repository.saveAndFlush(anotherBook);
@@ -54,15 +58,36 @@ public class BookRepositoryTest {
 
     @Test
     public void saveBookWithoutIsbn() {
-        assertThrows(DataIntegrityViolationException.class, () -> {
+        assertThrows(ConstraintViolationException.class, () -> {
+            Optional<Book> optionalBook = repository.findById(1L);
+            assertTrue(optionalBook.isPresent());
+
+            Book book = optionalBook.get();
             book.setIsbn(null);
             repository.saveAndFlush(book);
         });
     }
 
     @Test
-    public void saveBookWithoutTitle() {
+    @Disabled
+    public void saveBookWithShortIsbn() {
         assertThrows(DataIntegrityViolationException.class, () -> {
+            Optional<Book> optionalBook = repository.findById(1L);
+            assertTrue(optionalBook.isPresent());
+
+            Book book = optionalBook.get();
+            book.setIsbn("123");
+            repository.saveAndFlush(book);
+        });
+    }
+
+    @Test
+    public void saveBookWithoutTitle() {
+        assertThrows(ConstraintViolationException.class, () -> {
+            Optional<Book> optionalBook = repository.findById(1L);
+            assertTrue(optionalBook.isPresent());
+
+            Book book = optionalBook.get();
             book.setTitle(null);
             repository.saveAndFlush(book);
         });
@@ -70,7 +95,11 @@ public class BookRepositoryTest {
 
     @Test
     public void saveBookWithoutAuthors() {
-        assertThrows(DataIntegrityViolationException.class, () -> {
+        assertThrows(ConstraintViolationException.class, () -> {
+            Optional<Book> optionalBook = repository.findById(1L);
+            assertTrue(optionalBook.isPresent());
+
+            Book book = optionalBook.get();
             book.setAuthors(null);
             repository.saveAndFlush(book);
         });
@@ -78,7 +107,11 @@ public class BookRepositoryTest {
 
     @Test
     public void saveBookWithoutPrice() {
-        assertThrows(DataIntegrityViolationException.class, () -> {
+        assertThrows(ConstraintViolationException.class, () -> {
+            Optional<Book> optionalBook = repository.findById(1L);
+            assertTrue(optionalBook.isPresent());
+
+            Book book = optionalBook.get();
             book.setPrice(null);
             repository.saveAndFlush(book);
         });
@@ -86,8 +119,16 @@ public class BookRepositoryTest {
 
     @Test
     public void saveBookWithLongDescription() {
-        assertThrows(DataIntegrityViolationException.class, () -> {
-            book.setDescription("Spring Framework has been making Java developers more productive and successful for over a dozen years, and it shows no signs of slowing down! Spring in Action, 5th Edition is the fully-updated revision of Manning's bestselling Spring in Action. This new edition includes all Spring 5.0 updates, along with new examples on reactive programming, Spring WebFlux, and microservices. Readers will also find the latest Spring best practices, including Spring Boot for application setup and configuration. Purchase of the print book includes a free eBook in PDF, Kindle, and ePub formats from Manning Publications.");
+        assertThrows(ConstraintViolationException.class, () -> {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < 2002; i++) {
+                sb.append(i);
+            }
+            Optional<Book> optionalBook = repository.findById(1L);
+            assertTrue(optionalBook.isPresent());
+
+            Book book = optionalBook.get();
+            book.setDescription(sb.toString());
             repository.saveAndFlush(book);
         });
     }
