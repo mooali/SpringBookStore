@@ -26,7 +26,7 @@ public class Book {
             strategy = GenerationType.SEQUENCE,
             generator = "book_seq"
     )
-    private Long Id;
+    private Long id;
 
     @NotBlank
     @Length(min = 10, max = 13)
@@ -60,34 +60,12 @@ public class Book {
     private BigDecimal price;
 
 
-    public Book(Long id, String isbn, String title, String subtitle,
-                String authors, String publisher, Integer publicationYear,
-                Integer numberOfPages, String categories, String description,
-                String imageUrl, String rating, BigDecimal price) {
-        this.Id = id;
-        this.isbn = isbn;
-        this.title = title;
-        this.subtitle = subtitle;
-        this.authors = authors;
-        this.publisher = publisher;
-        this.publicationYear = publicationYear;
-        this.numberOfPages = numberOfPages;
-        this.categories = categories;
-        this.description = description;
-        this.imageUrl = imageUrl;
-        this.rating = rating;
-        this.price = price;
-    }
-
-    public Book() {
-    }
-
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        id = id;
     }
 
     public String getIsbn() {
