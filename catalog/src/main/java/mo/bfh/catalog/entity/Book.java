@@ -32,12 +32,12 @@ public class Book {
     @Length(min = 10, max = 13)
     private String isbn;
 
-    @NotNull
+    @NotBlank
     private String title;
 
     private String subtitle;
 
-    @NotNull
+    @NotBlank
     private String authors;
 
     private String publisher;
@@ -46,14 +46,12 @@ public class Book {
     private Integer publicationYear;
 
     private Integer numberOfPages;
-
     private String categories;
 
     @Size(max = 500)
     private String description;
 
     private String imageUrl;
-
     private String rating;
 
     @NotNull
