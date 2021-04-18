@@ -18,14 +18,8 @@ import java.math.BigDecimal;
 public class Book {
 
     @Id
-    @SequenceGenerator(
-            name = "book_seq",
-            sequenceName = "book_seq"
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "book_seq"
-    )
+    @SequenceGenerator(name = "book_seq", sequenceName = "book_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "book_seq")
     private Long id;
 
     @NotBlank
@@ -34,7 +28,6 @@ public class Book {
 
     @NotBlank
     private String title;
-
     private String subtitle;
 
     @NotBlank
@@ -57,13 +50,12 @@ public class Book {
     @NotNull
     private BigDecimal price;
 
-
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
-        id = id;
+        this.id = id;
     }
 
     public String getIsbn() {
