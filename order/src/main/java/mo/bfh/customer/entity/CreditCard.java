@@ -13,8 +13,9 @@ import javax.validation.constraints.NotBlank;
 @Embeddable
 public class CreditCard {
 
+    @NotNull
     @Enumerated(EnumType.STRING)
-    private CreditCardType creditCardType;
+    private CreditCardType type;
 
     @NotBlank
     private String number;
@@ -25,11 +26,11 @@ public class CreditCard {
     private Integer expirationMonth;
 
     @NotNull
-    @Min(2021) //better use Calendar.getInstance().get(Calendar.YEAR); (actuall year)
+    @Min(2020) //better use Calendar.getInstance().get(Calendar.YEAR); (actuall year)
     private Integer expirationYear;
 
-    public CreditCard(CreditCardType creditCardType,String number,Integer expirationMonth, Integer expirationYear) {
-        this.creditCardType = creditCardType;
+    public CreditCard(CreditCardType type,String number,Integer expirationMonth, Integer expirationYear) {
+        this.type = type;
         this.number = number;
         this.expirationMonth = expirationMonth;
         this.expirationYear = expirationYear;
@@ -38,12 +39,12 @@ public class CreditCard {
     public CreditCard() {
     }
 
-    public CreditCardType getCreditCardType() {
-        return creditCardType;
+    public CreditCardType getType() {
+        return type;
     }
 
-    public void setCreditCardType(CreditCardType creditCardType) {
-        this.creditCardType = creditCardType;
+    public void setType(CreditCardType type) {
+        this.type = type;
     }
 
     public String getNumber() {

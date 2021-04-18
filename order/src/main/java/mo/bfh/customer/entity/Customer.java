@@ -7,11 +7,13 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 @Entity
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
     @NotBlank
     private String firstName;
@@ -22,6 +24,7 @@ public class Customer {
     @NotBlank
     @Size(min = 5)
     private String password;
+
     @Valid
     @Embedded
     private Address address;
@@ -29,6 +32,17 @@ public class Customer {
     @Embedded
     private CreditCard creditCard;
 
+    public Customer() {
+    }
+
+    public Customer(String firstName, String lastName, String email, String password, Address address, CreditCard creditCard) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.address = address;
+        this.creditCard = creditCard;
+    }
 
     public Long getId() {
         return id;

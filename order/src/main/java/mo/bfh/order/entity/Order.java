@@ -2,24 +2,36 @@ package mo.bfh.order.entity;
 
 import mo.bfh.customer.entity.Address;
 import mo.bfh.customer.entity.CreditCard;
+import mo.bfh.customer.entity.Customer;
 
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
+@Table(name = "salesorder")
 public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
     private LocalDateTime date;
     @NotNull
     private BigDecimal amount;
+    @NotNull
     @Enumerated(EnumType.STRING)
-    private OrderStatus orderStatus;
+    private OrderStatus status;
+
+    @ManyToOne(optional = false)
+    private Customer customer;
+
     @Valid
     @Embedded
     private Address address;
@@ -27,26 +39,25 @@ public class Order {
     @Embedded
     private CreditCard creditCard;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "order_id")
+    private List<OrderItem> items = new ArrayList<>();
 
     public Order() {
     }
 
-    public Order(LocalDateTime date, BigDecimal amount, OrderStatus orderStatus, @Valid Address address, @Valid CreditCard creditCard) {
+    public Order(LocalDateTime date, BigDecimal amount, OrderStatus status, Customer customer, List<OrderItem> items) {
         this.date = date;
         this.amount = amount;
-        this.orderStatus = orderStatus;
-        this.address = address;
-        this.creditCard = creditCard;
+        this.status = status;
+        this.customer = customer;
+        this.address = customer.getAddress();
+        this.creditCard = customer.getCreditCard();
+        this.items = items;
     }
-
-
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public LocalDateTime getDate() {
@@ -65,12 +76,20 @@ public class Order {
         this.amount = amount;
     }
 
-    public OrderStatus getOrderStatus() {
-        return orderStatus;
+    public OrderStatus getStatus() {
+        return status;
     }
 
-    public void setOrderStatus(OrderStatus orderStatus) {
-        this.orderStatus = orderStatus;
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public Address getAddress() {
@@ -87,5 +106,13 @@ public class Order {
 
     public void setCreditCard(CreditCard creditCard) {
         this.creditCard = creditCard;
+    }
+
+    public List<OrderItem> getItems() {
+        return items;
+    }
+
+    public void setItems(List<OrderItem> items) {
+        this.items = items;
     }
 }

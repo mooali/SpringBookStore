@@ -5,11 +5,13 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 @Entity
 public class OrderItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
     @Valid
     @Embedded
@@ -20,17 +22,13 @@ public class OrderItem {
     public OrderItem() {
     }
 
-    public OrderItem(@Valid BookInfo book, @NotNull Integer quantity) {
+    public OrderItem(BookInfo book, Integer quantity) {
         this.book = book;
         this.quantity = quantity;
     }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public BookInfo getBook() {

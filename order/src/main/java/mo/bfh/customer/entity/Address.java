@@ -13,23 +13,35 @@ public class Address {
     private String street;
     @NotBlank
     private String city;
-    @Min(5)
-    private Integer postalCode;
+    @NotBlank
+    private String stateProvince;
+    @NotBlank
+    private String postalCode;
     @NotBlank
     private String country;
 
-    public Address(@NotBlank String street, @NotBlank String city, @Min(5) Integer postalCode, @NotBlank String country) {
+    public Address() {
+    }
+
+    public Address(String street, String city, String stateProvince, String postalCode, String country) {
         this.street = street;
+        this.stateProvince = stateProvince;
         this.city = city;
         this.postalCode = postalCode;
         this.country = country;
     }
 
-    public Address() {
-    }
 
     public String getStreet() {
         return street;
+    }
+
+    public String getStateProvince() {
+        return stateProvince;
+    }
+
+    public void setStateProvince(String stateProvince) {
+        this.stateProvince = stateProvince;
     }
 
     public void setStreet(String street) {
@@ -44,11 +56,11 @@ public class Address {
         this.city = city;
     }
 
-    public Integer getPostalCode() {
+    public String getPostalCode() {
         return postalCode;
     }
 
-    public void setPostalCode(Integer postalCode) {
+    public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
 
