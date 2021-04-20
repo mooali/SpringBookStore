@@ -29,26 +29,21 @@ public class Book {
     @NotBlank
     private String title;
     private String subtitle;
-
     @NotBlank
     private String authors;
-
     private String publisher;
-
     @Min(1000)
     private Integer publicationYear;
-
-    private Integer numberOfPages;
+    @Size(max = 500)
     private String categories;
-
     @Size(max = 500)
     private String description;
-
     private String imageUrl;
+    private Integer numberOfPages;
     private String rating;
-
     @NotNull
     private BigDecimal price;
+
 
     public Long getId() {
         return id;
